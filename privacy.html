@@ -1,0 +1,51 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Privacy | stack-lens</title><style>body{font:16px/1.85 -apple-system,BlinkMacSystemFont,sans-serif;color:#123;background:#f8fafc;margin:0}main{max-width:860px;margin:56px auto;padding:36px;background:white;border-radius:16px}h1,h2{line-height:1.4}a{color:#0f766e}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}</style><main><a href="index.html">stack-lens</a><pre><h1>stack-lens プライバシーポリシー</h1>
+
+最終更新日: 2026年11月2日
+
+stack-lens（以下「本拡張機能」）は、ユーザーが開いているWebサイトの技術スタックとセキュリティ設定を表示するChrome拡張機能です。本ポリシーでは、本拡張機能が扱う情報を説明します。
+
+<h2>読み取る情報</h2>
+
+本拡張機能は、ホスト権限を許可したサイトのページ読み込み時に、タブのメイン文書のURL・HTTPステータス・レスポンスヘッダーを自動的に読み取り、ブラウザのセッション用の保存領域に保存します。解析ボタンを押していないタブも対象です。
+
+Set-CookieヘッダーからはCookie名と属性を取り出し、Cookie値は保存しません。その他のヘッダーは判定に必要な項目だけ保存します。存在だけで判定できる項目は値を保存せず、値が必要な項目も1値4096文字・8値までに制限します。判定に不要な独自ヘッダーや認証ヘッダーは保存しません。ただし必要なヘッダーやURLにもサイト由来の識別子が含まれる場合があります。
+
+ユーザーがツールバーのボタンを押したときに、保存済みの情報とあわせて、次の情報を読み取って解析します。
+
+- 表示中のページのURL、HTML、metaタグ、読み込まれているスクリプトとスタイルシートのURL
+- 表示中のページから参照できるCookieの名前（値は解析・保存しません）
+- 同一オリジン（スキーム・ホスト・ポートが一致）のJavaScriptファイル（重複を除き最大8本、各先頭300,000バイト。リダイレクトは追いません）
+
+これらの解析は、すべてユーザーのブラウザの中で行います。開発者のサーバーへ送信することはありません。開発者はサーバーを運用していません。
+
+<h2>外部サービスへの送信</h2>
+
+ボタン操作時に、調べたサイトについて次の問い合わせを行います。IPアドレス、localhost、単一ラベルのホスト名、.local / .localhost のローカル名では公開DNS・ASNへの問い合わせを行いません。追加のDNS・JS取得ではCookieやRefererを送信しません。
+
+| 送信先 | 送る情報 | 目的 |
+|---|---|---|
+| Cloudflare（cloudflare-dns.com） | 調べたサイトのホスト名・ドメイン名、CNAMEの問い合わせ先、Team Cymru向けのIPアドレス由来の問い合わせ名・ASN | DNSレコード（NS、MX、TXTなど）と、以下のASN情報をDNS over HTTPSで取得するため |
+| Team Cymru（CloudflareのDNS経由） | 調べたサイトのIPアドレス由来の問い合わせ名・ASN | IPアドレスを管理している組織（AWS、Google Cloudなど）を調べるため |
+
+各サービスでの情報の扱いは、それぞれのプライバシーポリシーに従います。
+
+- Cloudflare 1.1.1.1 のプライバシー: https://developers.cloudflare.com/1.1.1.1/privacy/public-dns-resolver/
+- Team Cymru: https://www.team-cymru.com/privacy
+
+<h2>保存する情報</h2>
+
+ページを読み込んだときのURL・HTTPステータス・レスポンスヘッダー・Cookie名と属性・取得時刻を、タブごとにブラウザのセッション用の保存領域（`chrome.storage.session`）に保存します。同じタブの次のメイン文書のレスポンスで上書きされ、タブを閉じると削除されます。ボタンを押した後も保存は続き、ブラウザを終了するとすべて消えます。解析結果は保存しません。
+
+<h2>第三者への提供</h2>
+
+上記の外部サービスへの問い合わせを除き、読み取った情報を第三者に提供・販売することはありません。広告や分析のためのツールは組み込んでいません。
+
+<h2>変更</h2>
+
+本ポリシーを変更した場合は、このページの最終更新日を更新します。
+
+<h2>問い合わせ</h2>
+
+お問い合わせ・不具合報告: <a href="https://github.com/TKssk01/stack-lens-support/issues">stack-lens サポート</a>
+
+公開の問い合わせ欄にCookie、認証情報、非公開URL、個人情報を記載しないでください。</pre></main></html>
